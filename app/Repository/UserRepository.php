@@ -23,4 +23,28 @@ class UserRepository
         ]);
         return $user;
     }
+
+    public function findById(string $id): ?User
+    {
+        $stmt = $this->connection->prepare("SELECT id, name, password FROM users WHERE id=:id");
+        $stmt->execute([ ':id' => $id ]);
+
+        try {
+            if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $user = new User();
+                $user->id = $row['id'];
+                $user->name = $row['name'];
+                $user->password = $row['password'];
+                return $user;
+            }
+            return null;
+        } finally {
+            $stmt->closeCursor();
+        }
+    }
+
+    public function deleteAll(): void
+    {
+        $this->connection->exec("DELETE FROM users");
+    }
 }
