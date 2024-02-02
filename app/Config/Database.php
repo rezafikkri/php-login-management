@@ -27,7 +27,7 @@ class Database
 
     public static function commitTransaction(): void
     {
-        static::$pdo->commit()
+        static::$pdo->commit();
     }
 
     public static function rollbackTransaction(): void

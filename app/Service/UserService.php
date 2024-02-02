@@ -14,7 +14,7 @@ use RezaFikkri\PHPLoginManagement\Repository\UserRepository;
 
 class UserService
 {
-    public function __construct(private UserRepository $userRepository): void
+    public function __construct(private UserRepository $userRepository)
     {
         
     }
